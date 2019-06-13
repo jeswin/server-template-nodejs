@@ -1,3 +1,4 @@
+/*
 INSERT INTO "user"(
 	"id",
 	"first_name",
@@ -148,3 +149,4 @@ INSERT INTO "role_token"(
 		1559302695646,
 		1559302695646
 	);
+*/
