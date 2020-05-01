@@ -1,7 +1,7 @@
 module.exports = {
-  database: "someapdb",
+  database: "borderpatrolservicedb",
   host: "test.example.com",
   password: "secret",
   port: 5432,
-  user: "someappdbuser"
+  user: "borderpatrolserviceuser"
 };

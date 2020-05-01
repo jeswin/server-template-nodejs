@@ -1,31 +1,37 @@
-/*
 INSERT INTO "user"(
 	"id",
-	"first_name",
-	"last_name",
-	"created_at",
-	"updated_at"
+	"name",
+	"timestamp"
 )
 	VALUES (
 		'jeswin',
-		'Jeswin',
-		'Kumar',
-		1559302695646,
+		'Jeswin Kumar',
+		1559302695646
+	);
+
+INSERT INTO "local_user_auth"(
+	"user_id",
+	"hash",
+	"salt",
+	"algorithm",
+	"timestamp"
+)
+	VALUES (
+		'jeswin',
+		'some_hash',
+		'some_salt',
+		'sha256',
 		1559302695646
 	);
 
 INSERT INTO "user"(
 	"id",
-	"first_name",
-	"last_name",
-	"created_at",
-	"updated_at"
+	"name",
+	"timestamp"
 )
 	VALUES (
 		'eddie',
-		'Eddie',
-		'Noname',
-		1559302695646,
+		'Eddie Noname',
 		1559302695646
 	);
 
@@ -33,14 +39,12 @@ INSERT INTO "provider_user"(
 	"user_id",
 	"provider_user_id",
 	"provider",
-	"created_at",
-	"updated_at"
+	"timestamp"
 )
 	VALUES (
 		'jeswin',
 		'jeswin',
 		'github',
-		1559302695646,
 		1559302695646
 	);
 
@@ -48,75 +52,63 @@ INSERT INTO "provider_user"(
 	"user_id",
 	"provider_user_id",
 	"provider",
-	"created_at",
-	"updated_at"
+	"timestamp"
 )
 	VALUES (
 		'eddie',
 		'eddiedoesntexist',
 		'github',
-		1559302695646,
 		1559302695646
 	);
 
 INSERT INTO "role"(
 	"name",
-	"created_at",
-	"updated_at"
+	"timestamp"
 )
 	VALUES (
 		'coreteam',
-		1559302695646,
 		1559302695646
 	);
 	
 INSERT INTO "role"(
 	"name",
-	"created_at",
-	"updated_at"
+	"timestamp"
 )
 	VALUES (
 		'admin',
-		1559302695646,
 		1559302695646
 	);
 	
 INSERT INTO "user_role"(
 	"role_name",
 	"user_id",
-	"created_at",
-	"updated_at"
+	"timestamp"
 )
 	VALUES (
 		'coreteam',
 		'jeswin',
-		1559302695646,
 		1559302695646
 	);
 
 INSERT INTO "user_role"(
 	"role_name",
 	"user_id",
-	"created_at",
-	"updated_at"
+	"timestamp"
 	)
 	VALUES (
 		'admin',
 		'jeswin',
-		1559302695646,
 		1559302695646
 	);
 
 INSERT INTO "user_role"(
 	"role_name",
 	"user_id",
-	"created_at",
-	"updated_at"
+	"timestamp"
 )
 	VALUES (
 		'admin',
 		'eddie',
-		1559302695646,
 		1559302695646
 	);
 
@@ -124,14 +116,12 @@ INSERT INTO "user_token"(
 	"name",
 	"user_id",
 	"value",
-	"created_at",
-	"updated_at"
+	"timestamp"
 )
 	VALUES (
 		'full',
 		'jeswin',
 		'yes',
-		1559302695646,
 		1559302695646
 	);
 	
@@ -139,14 +129,26 @@ INSERT INTO "role_token"(
 	"name",
 	"role_name",
 	"value",
-	"created_at",
-	"updated_at"
+	"timestamp"
 )
 	VALUES (
 		'dashboard',
 		'admin',
 		'yes',
-		1559302695646,
 		1559302695646
 	);
-*/
+
+INSERT INTO "kvstore"(
+	"user_id",
+	"key",
+	"value",
+	"tag",
+	"timestamp"
+)
+	VALUES (
+		'jeswin',
+		'group',
+		'admin',
+		'rights',
+		1559302695646
+	);

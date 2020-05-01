@@ -1,3 +1,5 @@
 module.exports = {
-  path: "/some/path"
+  domain: "example.com",
+  prop: "value",
+  sessionKeys: "grant_555_666_777",
 };

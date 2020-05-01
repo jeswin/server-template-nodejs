@@ -1,7 +1,7 @@
 import "mocha";
 import "should";
-import serviceTest from "./service-test";
-import domainTest from "./domain-test";
+import serviceTest from "./serviceTest";
+import domainTest from "./domainTest";
 import { join } from "path";
 import { IDbConfig } from "psychopiggy";
 import { readFileSync } from "fs";
@@ -23,31 +23,28 @@ function run() {
     );
   }
 
+  const port = parseInt(process.env.PORT);
   const configDir = process.env.CONFIG_DIR;
 
-  const dbConfig: IDbConfig = require(join(configDir, "db.js"));
+  const dbConfig: IDbConfig = require(join(configDir, "pg.js"));
 
   /* Sanity check to make sure we don't accidentally overwrite any database. */
-  if (!dbConfig.database.endsWith("testdb")) {
+  if (!dbConfig.database.startsWith("testdb")) {
     throw new Error("Test database name needs to be prefixed 'testdb'.");
   }
 
-  const port = parseInt(process.env.PORT);
-
-  describe("server-template-nodejs", () => {
+  describe("border-patrol", () => {
     before(async function resetDb() {
       const pool = new Pool({ ...dbConfig, database: "template1" });
-      
+
       const { rows: existingDbRows } = await pool.query(
-        `SELECT 1 AS result FROM pg_database WHERE datname='${
-          dbConfig.database
-        }'`
-        );
-        
+        `SELECT 1 AS result FROM pg_database WHERE datname='${dbConfig.database}'`
+      );
+
       if (existingDbRows.length) {
         await pool.query(`DROP DATABASE ${dbConfig.database}`);
       }
-      
+
       await pool.query(`CREATE DATABASE ${dbConfig.database}`);
     });
 
@@ -67,7 +64,7 @@ function run() {
       await pool.query(createTablesSQL);
     });
 
-    serviceTest(dbConfig, configDir);
+    serviceTest(dbConfig, port, configDir);
     domainTest(dbConfig, configDir);
   });
 }
