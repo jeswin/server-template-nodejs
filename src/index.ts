@@ -39,7 +39,7 @@ export async function startApp(port: number, configDir: string) {
   const router = new Router();
 
   router.post("/login", login);
-  router.get("/health", health);
+  router.get("/sys/health", health);
 
   // Start app
   var app = new Koa();
