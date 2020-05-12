@@ -13,6 +13,7 @@ import * as jwt from "./utils/jwt";
 import * as config from "./config";
 import { IAppConfig, IJwtConfig } from "./types";
 import { login } from "./api/account";
+import { health } from "./api/health";
 
 const packageJson = require("../package.json");
 const grant = require("grant-koa");
@@ -38,6 +39,7 @@ export async function startApp(port: number, configDir: string) {
   const router = new Router();
 
   router.post("/login", login);
+  router.get("/health", health);
 
   // Start app
   var app = new Koa();
