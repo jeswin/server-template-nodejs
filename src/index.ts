@@ -14,11 +14,13 @@ import * as config from "./config";
 import { IAppConfig, IJwtConfig } from "./types";
 import { login } from "./api/account";
 
+const packageJson = require("../package.json");
 const grant = require("grant-koa");
 
 const argv = yargs.options({
   c: { type: "string", alias: "config" },
   p: { type: "number", default: 8080, alias: "port" },
+  v: { type: "boolean", alias: "version" },
 }).argv;
 
 export async function startApp(port: number, configDir: string) {
@@ -36,7 +38,7 @@ export async function startApp(port: number, configDir: string) {
   const router = new Router();
 
   router.post("/login", login);
-  
+
   // Start app
   var app = new Koa();
   app.use(bodyParser());
@@ -47,24 +49,29 @@ export async function startApp(port: number, configDir: string) {
   app.use(router.allowedMethods());
 
   app.listen(port);
-  
+
   return app;
 }
 
 if (require.main === module) {
-  if (!argv.p) {
-    throw new Error("The port should be specified with the -p option.");
-  }
-  
-  if (!argv.c) {
-    throw new Error(
-      "The configuration directory should be specified with the -c option."
+  // Print the version and exit
+  if (argv.v) {
+    console.log(packageJson.version);
+  } else {
+    if (!argv.p) {
+      throw new Error("The port should be specified with the -p option.");
+    }
+
+    if (!argv.c) {
+      throw new Error(
+        "The configuration directory should be specified with the -c option."
       );
     }
-    
+
     const configDir = argv.c;
     const port = argv.p;
-    
+
     startApp(port, configDir);
     console.log(`listening on port ${port}`);
+  }
 }
