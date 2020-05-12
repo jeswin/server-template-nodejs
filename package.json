@@ -1,6 +1,7 @@
 {
   "name": "server-template-nodejs",
   "version": "0.0.1",
+  "private": true,
   "author": "Jeswin Kumar<jeswinpk@agilehead.com>",
   "contributors": [
     "Jeswin Kumar<jeswinpk@agilehead.com>"
