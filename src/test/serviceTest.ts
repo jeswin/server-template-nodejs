@@ -2,8 +2,6 @@ import pg = require("pg");
 import { startApp } from "..";
 import request = require("supertest");
 import { IDbConfig } from "psychopiggy";
-import * as jwtModule from "../utils/jwt";
-import { RouterContext } from "koa-router";
 
 let app: any;
 

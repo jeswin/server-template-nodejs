@@ -1,6 +1,5 @@
 import { IRouterContext } from "koa-router";
 import { IVerifiedValidJwt, verify } from "../../utils/jwt";
-import { IRouter } from "express";
 
 export async function ensureJwt(
   ctx: IRouterContext,
