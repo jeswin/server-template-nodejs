@@ -4,9 +4,9 @@ import { authenticate } from "../domain/account";
 import { sign } from "../utils/jwt";
 import { setCookie } from "../utils/cookie";
 
-const config = configModule.get();
-
 export async function login(ctx: IRouterContext) {
+  const config = configModule.get();
+  
   const { userId, password } = ctx.body;
   const isValidLogin = await authenticate(userId, password);
 
