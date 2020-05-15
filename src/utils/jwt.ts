@@ -11,6 +11,10 @@ export function init(c: IJwtConfig) {
   }
 }
 
+export function getConfig(): IJwtConfig {
+  return config;
+}
+
 export type IJwt = {
   [key: string]: string;
 };

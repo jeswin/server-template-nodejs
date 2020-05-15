@@ -26,7 +26,6 @@ export async function startApp(port: number, configDir: string) {
   const appConfig: IAppConfig = require(join(configDir, "app.js"));
   const dbConfig = require(join(configDir, "pg.js"));
   const jwtConfig: IJwtConfig = require(join(configDir, "jwt.js"));
-  const oauthConfig = require(join(configDir, "oauth.js"));
 
   // Init utils
   db.init(dbConfig);
@@ -42,7 +41,6 @@ export async function startApp(port: number, configDir: string) {
   // Start app
   var app = new Koa();
   app.use(bodyParser());
-  app.keys = appConfig.sessionKeys.split(",");
   app.use(router.routes());
   app.use(router.allowedMethods());
 
