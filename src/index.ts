@@ -9,10 +9,13 @@ import { join } from "path";
 
 import * as db from "./db";
 import * as jwt from "./utils/jwt";
-import * as config from "./config";
 import { IAppConfig, IJwtConfig } from "./types";
 import { login } from "./api/account";
 import { health } from "./api/sys/health";
+
+import * as config from "./config";
+import * as jwtConfig from "./config/jwt";
+import * as pgConfig from "./config/pg";
 
 const packageJson = require("../package.json");
 
@@ -23,14 +26,17 @@ const argv = yargs.options({
 }).argv;
 
 export async function startApp(port: number, configDir: string) {
-  const appConfig: IAppConfig = require(join(configDir, "app.js"));
-  const dbConfig = require(join(configDir, "pg.js"));
-  const jwtConfig: IJwtConfig = require(join(configDir, "jwt.js"));
+  const appSettings: IAppConfig = require(join(configDir, "app.js"));
+  const dbSettings = require(join(configDir, "pg.js"));
+  const jwtSettings: IJwtConfig = require(join(configDir, "jwt.js"));
 
-  // Init utils
-  db.init(dbConfig);
-  jwt.init(jwtConfig);
-  config.init(appConfig);
+  // init configuration
+  config.init(appSettings);
+  jwtConfig.init(jwtSettings);
+  pgConfig.init(dbSettings);
+
+  // init the db library
+  db.init();
 
   // Set up routes
   const router = new Router();
