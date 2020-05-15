@@ -2,7 +2,6 @@ import { randomBytes, pbkdf2 } from "crypto";
 import { promisify } from "util";
 import { withTransaction, getPool } from "../../db";
 import * as pg from "psychopiggy";
-import { sign } from "../../utils/jwt";
 
 const pbkdf2Func = promisify(pbkdf2);
 
@@ -62,8 +61,7 @@ export async function createLocalUser(userId: string, password: string) {
   return txResult.success
     ? {
         created: true as true,
-        jwt: sign(tokenData),
-        tokens: tokenData,
+        hello: "world",
       }
     : {
         created: false as false,

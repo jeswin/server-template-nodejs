@@ -9,6 +9,4 @@ export interface IAppConfig {
 
 export interface IJwtConfig {
   publicKey: string;
-  privateKey: string;
-  signOptions: object;
 }
