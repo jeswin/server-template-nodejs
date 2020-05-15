@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import Koa = require("koa");
-import session = require("koa-session");
 import mount = require("koa-mount");
 import Router = require("koa-router");
 import bodyParser = require("koa-bodyparser");
@@ -16,7 +15,6 @@ import { login } from "./api/account";
 import { health } from "./api/sys/health";
 
 const packageJson = require("../package.json");
-const grant = require("grant-koa");
 
 const argv = yargs.options({
   c: { type: "string", alias: "config" },
@@ -45,8 +43,6 @@ export async function startApp(port: number, configDir: string) {
   var app = new Koa();
   app.use(bodyParser());
   app.keys = appConfig.sessionKeys.split(",");
-  app.use(session(app));
-  app.use(mount(grant(oauthConfig)));
   app.use(router.routes());
   app.use(router.allowedMethods());
 
