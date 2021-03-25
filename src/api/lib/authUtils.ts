@@ -1,11 +1,12 @@
 import { IRouterContext } from "koa-router";
+import { getSingleValue } from "../../utils/html";
 import { IVerifiedValidJwt, verify } from "../../utils/jwt";
 
 export async function ensureJwt(
   ctx: IRouterContext,
   then: (verifiedJwt: IVerifiedValidJwt, args: { jwt: string }) => Promise<any>
 ) {
-  const jwt: string = ctx.headers["border-patrol-jwt"];
+  const jwt = getSingleValue(ctx.headers["border-patrol-jwt"]);
 
   return !jwt
     ? /* JWT was missing */
