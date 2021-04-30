@@ -1,11 +1,15 @@
+import { IDbConfig } from "psychopiggy";
+
 export interface IAppConfig {
   cookies: {
     maxAge: number;
   };
   domain: string;
   prop: "value";
+  jwt: IJwtConfig;
+  db: IDbConfig;
 }
 
-export interface IJwtConfig {
+export type IJwtConfig = {
   publicKey: string;
-}
+};

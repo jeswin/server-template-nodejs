@@ -1,15 +1,13 @@
 #!/usr/bin/env node
 
 import Koa = require("koa");
-import mount = require("koa-mount");
 import Router = require("koa-router");
 import bodyParser = require("koa-bodyparser");
 import yargs = require("yargs");
 import { join } from "path";
 
 import * as db from "./db";
-import * as jwt from "./utils/jwt";
-import { IAppConfig, IJwtConfig } from "./types";
+import { IAppConfig } from "./types";
 import { login } from "./api/account";
 import { health } from "./api/sys/health";
 
@@ -26,14 +24,12 @@ const argv = yargs.options({
 }).argv;
 
 export async function startApp(port: number, configDir: string) {
-  const appSettings: IAppConfig = require(join(configDir, "app.js"));
-  const dbSettings = require(join(configDir, "pg.js"));
-  const jwtSettings: IJwtConfig = require(join(configDir, "jwt.js"));
-
+  const appConfig: IAppConfig = require(join(configDir, "app.js"));
+  
   // init configuration
-  config.init(appSettings);
-  jwtConfig.init(jwtSettings);
-  pgConfig.init(dbSettings);
+  config.init(appConfig);
+  jwtConfig.init(appConfig.jwt);
+  pgConfig.init(appConfig.db);
 
   // init the db library
   db.init();
