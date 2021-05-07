@@ -1,5 +1,5 @@
 import { IDbConfig } from "psychopiggy";
-import selectAndMatchRows from "../selectAndMatchRows";
+import selectAndMatchRows from "../utils/selectAndMatchRows";
 import * as localAccountModule from "../../domain/account";
 
 export default function createLocalUser(dbConfig: IDbConfig) {
