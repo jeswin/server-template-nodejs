@@ -2,7 +2,7 @@ import pg = require("pg");
 import { join } from "path";
 import { readFileSync } from "fs";
 import { IDbConfig } from "psychopiggy";
-import * as localAccountModule from "../domain/account";
+import createLocalUser from "./unitTests/createLocalUser";
 
 export default function run(dbConfig: IDbConfig, configDir: string) {
   async function selectAndMatchRows(
@@ -19,7 +19,7 @@ export default function run(dbConfig: IDbConfig, configDir: string) {
     });
   }
 
-  describe("domain", async () => {
+  describe("unit tests", async () => {
     async function writeSampleData() {
       const pool = new pg.Pool(dbConfig);
 
@@ -30,24 +30,10 @@ export default function run(dbConfig: IDbConfig, configDir: string) {
       await pool.query(sampleDataSQL);
     }
 
-    it("localAccount.createLocalUser() creates a local user", async () => {
-      const result = await localAccountModule.createLocalUser(
-        "jeswin",
-        "secret"
-      );
-      (result as any).jwt = "something";
-      result.should.deepEqual({
-        created: true,
-        jwt: "something",
-        tokens: {
-          userId: "jeswin",
-          providerUserId: "jeswin",
-          provider: "local",
-        },
-      });
-
-      await selectAndMatchRows("user", 1, 0, { id: "jeswin" });
-      await selectAndMatchRows("local_user_auth", 1, 0, { user_id: "jeswin" });
+    beforeEach(async () => {
+      await writeSampleData();
     });
+
+    createLocalUser(dbConfig);
   });
 }
