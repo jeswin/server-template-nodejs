@@ -2,7 +2,7 @@ import pg = require("pg");
 import { join } from "path";
 import { readFileSync } from "fs";
 import { IDbConfig } from "psychopiggy";
-import createLocalUser from "./unitTests/createLocalUser";
+import createLocalUser from "./createLocalUser";
 
 export default function run(dbConfig: IDbConfig, configDir: string) {
   async function selectAndMatchRows(

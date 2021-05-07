@@ -1,11 +1,11 @@
 import pg = require("pg");
-import { startApp } from "..";
+import { startApp } from "../..";
 import request = require("supertest");
 import { IDbConfig } from "psychopiggy";
-import userIdExists from "./integrationTests/userIdExists";
-import missingUserId from "./integrationTests/missingUserId";
-import redirectsToConnect from "./integrationTests/redirectsToConnect";
-import createsUser from "./integrationTests/createsUser";
+import userIdExists from "./userIdExists";
+import missingUserId from "./missingUserId";
+import redirectsToConnect from "./redirectsToConnect";
+import createsUser from "./createsUser";
 
 let app: any;
 
